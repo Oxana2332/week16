@@ -6,29 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<script>
-    function sumInput() {
-        let sum = 0;
-        let numbers = [];
-
-        for (; ;) {
-            let number = +prompt("Введите число", '');
-            if (!number) break;
-            numbers.push(number);
-            numbers.sort(function (a, b) {
-                return a - b
-            })
-            sum += number;
-        }
-        alert(numbers);
-        alert('Сумма: ' + sum);
-    }
-
-    sumInput();
-</script>
 
 <body>
+    <script>
+        function sumInput() {
+            let sum = 0;
+            let numbers = [];
 
+            for (; ;) {
+                let number = +prompt("Введите число", '');
+                if (!number) break;
+                numbers.push(number);
+                numbers.sort(function (a, b) {
+                    return a - b
+                })
+                sum += number;
+            }
+            alert(numbers);
+            alert('Сумма: ' + sum);
+        }
+
+        sumInput();
+    </script>
 </body>
 
 </html>

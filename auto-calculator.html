@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>авто-калькулятор</title>
+    <style>
+        .cont {
+            margin: 5% 30%;
+            text-align: center;
+        }
+
+        .cont2 {
+            text-align: center;
+            margin: 5% 40%;
+        }
+    </style>
+</head>
+
+<body>
+    <article class="cont">
+        <h1>Рассчитать стоимость автомобиля</h1>
+        <p>Выберите бренд автомобиля:</p>
+        <select id="brands" onchange="selectBrand(this)" class="select">
+            <option value="none">- не выбрано -</option>
+            <option value="audi">Audi</option>
+            <option value="honda">Honda</option>
+            <option value="suzuki">Suzuki</option>
+            <option value="volvo">Volvo</option>
+        </select>
+        <select id="models" style="display: none;" class="select input cont2"></select>
+        <p>Тип кузова</p>
+        <select>
+            <option class="input" value="0">- не выбрано -</option>
+            <option class="input" value="20000">Лифтбэк</option>
+            <option class="input" value="30000">Универсал</option>
+            <option class="input" value="100000">Кабриолет</option>
+            <option class="input" value="10000">Хэтчбек</option>
+        </select>
+        <br>
+        <br>
+        <fieldset>
+            <legend>Тип коробки передач</legend>
+            <div>автомат<input class="input" value="30000" type="radio" name="gearbox"></div>
+            <div>робот<input class="input" value="20000" type="radio" name="gearbox"></div>
+        </fieldset>
+        <br>
+        <fieldset>
+            <legend>Тип топлива</legend>
+            газ<input class="input" value="5000" type="radio" name="fuel">
+            дизель<input class="input" value="7000" type="radio" name="fuel">
+        </fieldset>
+        <br>
+        В кредит <input class="input" value="40000" type="checkbox"> <br>
+        Застраховать авто<input class="input" value="10000" type="checkbox"> <br>
+        Поставить на учёт<input class="input" value="5000" type="checkbox"> <br>
+        <hr>
+        <div id="price"></div>
+        <button id="button" type="button" onclick="calcPrice();">Рассчитать</button>
+    </article>
+    <script>
+        let audiModels = ["Audi A1", "Audi A2", "Audi A3", "Audi A4"];
+        let audiModelsValue = [100000, 150000, 200000, 250000];
+        let hondaModels = ["Honda Accord", "Honda Civic", "Honda Pilot"];
+        let hondaModelsValue = [201000, 100500, 303000];
+        let suzukiModels = ["Suzuki Jimny", "Suzuki Samurai", "Suzuki Grand Vitara"];
+        let suzukiModelsValue = [200000, 100000, 300000];
+        let volvoModels = ["Volvo C30", "Volvo S60", "Volvo XC60"];
+        let volvoModelsValue = [100000, 200000, 300000];
+
+        function selectBrand(sender) {
+            if (sender.options[sender.selectedIndex].value == "none")
+                document.getElementById("models").style.display = "none";
+            else
+                document.getElementById("models").style.display = "block";
+
+            let optionsString = '';
+            if (sender.options[sender.selectedIndex].value == "audi") {
+                for (let i = 0; i < audiModels.length; i++) {
+                    optionsString += `<option value=${audiModelsValue[i]}>${audiModels[i]}</option>`
+                }
+            }
+
+            if (sender.options[sender.selectedIndex].value == "honda") {
+                for (let i = 0; i < hondaModels.length; i++) {
+                    optionsString += `<option value=${hondaModelsValue[i]}>${hondaModels[i]}</option>`
+                }
+            }
+
+            if (sender.options[sender.selectedIndex].value == "suzuki") {
+                for (let i = 0; i < suzukiModels.length; i++) {
+                    optionsString += `<option value=${suzukiModelsValue[i]}>${suzukiModels[i]}</option>`
+                }
+            }
+
+            if (sender.options[sender.selectedIndex].value == "volvo") {
+                for (let i = 0; i < volvoModels.length; i++) {
+                    optionsString += `<option value=${volvoModelsValue[i]}>${volvoModels[i]}</option>`
+                }
+            }
+
+            document.getElementById("models").innerHTML = optionsString;
+        }
+
+        function calcPrice() {
+            let prices = document.querySelectorAll(".input");
+            let sum = 0;
+
+            for (let price of prices) {
+                let currentPrice;
+                if (price.type == "checkbox" || price.type == "radio") {
+                    if (price.checked) {
+                        currentPrice = Number(price.value);
+                    } else {
+                        currentPrice = 0;
+                    }
+                }
+                else {
+                    currentPrice = Number(price.value);
+                }
+                sum = sum + currentPrice;
+            }
+            document.getElementById("price").innerHTML = sum;
+        }
+    </script>
+</body>
+
+</html>
