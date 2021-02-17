@@ -58,7 +58,12 @@ function calcPrice() {
         else {
             currentPrice = Number(price.value);
         }
-        sum = sum + currentPrice;
+    sum = sum + currentPrice;
     }
-    document.getElementById("price").innerHTML = sum;
+    return sum;
+}
+
+function onButtonClick () {
+    let total = calcPrice();
+    document.getElementById('price').innerHTML = total;   
 }
